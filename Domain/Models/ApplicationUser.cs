@@ -11,7 +11,7 @@ namespace Domain.Models
     public class ApplicationUser : IdentityUser
     {
         [Required]
-        public string Firstname { get; set; }
+        public string FirstName { get; set; }
 
         [Required]
 
