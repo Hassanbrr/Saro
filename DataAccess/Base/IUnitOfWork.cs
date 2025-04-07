@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using DataAccess.Modules.Categories.Interfaces;
 using DataAccess.Modules.Services.Interfaces;
+using DataAccess.Modules.Website.NavBarItem.Interfaces;
 
 namespace DataAccess.Base
 {
@@ -9,6 +10,8 @@ namespace DataAccess.Base
     {
  ICategoryRepository Category { get; }
  IServiceRepository Service { get; }
- void SaveChanges();
+ INavBarItemRepository NavBarItem { get; }
+
+void SaveChanges();
     }
 }

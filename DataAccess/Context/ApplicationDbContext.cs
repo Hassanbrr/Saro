@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using Domain.Models;
+using Domain.Models.Website;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -20,6 +21,8 @@ namespace DataAccess.Context
         public DbSet<Service> Services { get; set; } 
         public DbSet<Category> Categories { get; set; }
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+        public DbSet<NavbarItem> NavbarItems { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -30,6 +33,12 @@ namespace DataAccess.Context
                 .HasOne(c => c.ParentCategory)
                 .WithMany(c => c.SubCategories)
                 .HasForeignKey(c => c.ParentCategoryId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<NavbarItem>()
+                .HasOne(c => c.ParentNavbarItem)
+                .WithMany(c => c.Children)
+                .HasForeignKey(c => c.ParentId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Category>()
