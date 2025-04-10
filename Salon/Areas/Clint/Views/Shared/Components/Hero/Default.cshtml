@@ -1,0 +1,67 @@
+﻿@model List<Domain.Models.Website.HeroSection>
+
+<style>
+    .hero-container {
+        position: relative;
+        height: 100vh;
+        overflow-x: hidden;
+        overflow-y: scroll;
+        scroll-snap-type: y mandatory;
+    }
+
+    .hero-slide {
+        position: relative;
+        display: flex;
+        height: 100vh;
+        scroll-snap-align: start;
+    }
+
+    .hero-half {
+        flex: 1;
+        background-size: cover;
+        background-position: center;
+        transition: transform 1s ease;
+    }
+
+    .left-half {
+        transform: translateY(0);
+    }
+
+    .right-half {
+        transform: translateY(0);
+    }
+
+    .hero-slide.in-view .left-half {
+        transform: translateY(20%);
+    }
+
+    .hero-slide.in-view .right-half {
+        transform: translateY(-20%);
+    }
+</style>
+
+<div class="hero-container">
+	@foreach (var item in Model)
+	{
+		<div class="hero-slide">
+            <div class="hero-half left-half" style="background-image: url('@Url.Content(item.LeftPartPath)');"></div>
+            <div class="hero-half right-half" style="background-image: url('@Url.Content(item.RightPartPath)');"></div>
+		</div>
+	}
+</div>
+
+<script>
+    const slides = document.querySelectorAll('.hero-slide');
+
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('in-view');
+            } else {
+                entry.target.classList.remove('in-view');
+            }
+        });
+    }, { threshold: 0.5 });
+
+    slides.forEach(slide => observer.observe(slide));
+</script>

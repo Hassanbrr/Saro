@@ -1,0 +1,95 @@
+﻿@model Domain.Models.Website.HeroSection
+<div class="container-fluid ">
+
+	<!-- content -->
+
+	<div class="row">
+		<div class="page-header breadcrumb-header p-3 mr-2 ml-2 m-2">
+			<div class="row align-items-end ">
+				<div class="col-lg-8">
+					<div class="page-header-title text-left-rtl">
+						<div class="d-inline">
+							<h3 class="lite-text ">ساخت اسلایدر</h3>
+
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-4">
+					<ol class="breadcrumb float-sm-right">
+						<li class="breadcrumb-item "><a href="#"><i class="fas fa-home"></i></a></li>
+						<li class="breadcrumb-item "><a asp-area="Admin" asp-controller="Service" asp-action="Index">اسلایدر ها</a></li>
+						<li class="breadcrumb-item active">ساخت اسلایدر</li>
+					</ol>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+
+	<form method="post" action="" class="d-flex" enctype="multipart/form-data">
+		<input asp-for="Id" hidden />
+		<input asp-for="OriginalImagePath" hidden />
+		<div class="col-lg-10 col-sm-10 ">
+
+			<div class="mb-3 col-lg-10 col-md-8 col-sm-8">
+				<label asp-for="Title" class=""> </label>
+				<input asp-for="Title" type="text" class="form-control " />
+				<span asp-validation-for="Title" class="text-danger"></span>
+
+			</div>
+			<div class="mb-3 col-lg-10 col-md-8 col-sm-8">
+				<label asp-for="Subtitle"> </label>
+				<input asp-for="Subtitle" id="priceInput" type="text" class="form-control">
+				<span asp-validation-for="Subtitle" class="text-danger"></span>
+
+			</div>
+			<div class="mb-3 col-lg-10 col-md-8 col-sm-8">
+				<label asp-for="Slug" class=""> </label>
+				<input asp-for="Slug" type="text" class="form-control " />
+				<span asp-validation-for="Slug" class="text-danger"></span>
+
+			</div>
+
+			<div class="mb-3 col-lg-10 col-md-8 col-sm-8 ">
+				<label asp-for="OriginalImagePath" class="p-0"></label>
+				<input asp-for="OriginalImagePath" type="file" name="file" class="form-control" />
+				<span asp-validation-for="OriginalImagePath" class="text-info"></span>
+				<div clas="col-2 ">
+					<img alt="Profile Image" src="@Model..ImageUrl" width="200px" height="200px" />
+				</div>
+
+			</div>
+
+		 
+			<div class="row">
+				<div class="col-4">
+					@if (Model.Id != 0)
+					{
+
+						<button type="submit" class="btn outlined o-warning form-control  text-center">
+							ویرایش
+						</button>
+					}
+					else
+					{
+						<button id="submitButton" type="submit" class="btn outlined o-primary form-control  text-center">
+							اضافه کردن
+						</button>
+					}
+				</div>
+				<div class="col-4 ">
+					<a asp-area="Admin" asp-controller="HeroSection" asp-action="Index" class="btn outlined o-danger form-control text-center">
+						برگشت
+					</a>
+				</div>
+			</div>
+		</div>
+
+
+	</form>
+	<!-- end of form -->
+</div>
+ 

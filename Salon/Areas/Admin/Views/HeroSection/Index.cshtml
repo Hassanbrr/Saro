@@ -1,0 +1,124 @@
+﻿@model List<Domain.Models.Website.HeroSection>
+
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 p-2">
+
+	<div class="row">
+		<div class="page-header breadcrumb-header p-3 mr-2 ml-2 m-2">
+			<div class="row align-items-end ">
+				<div class="col-lg-8">
+					<div class="page-header-title text-left-rtl">
+						<div class="d-inline">
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-4">
+					<ol class="breadcrumb float-sm-right">
+						<li class="breadcrumb-item "><a href="#"><i class="fas fa-home"></i></a></li>
+						<li class="breadcrumb-item active">مدیریت اسلایدر </li>
+
+					</ol>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="card shade h-100">
+		<div class="card-body w-100 table-responsive ">
+
+			<div class="d-flex justify-content-around">
+				<h5 class="card-title">لیست اسلایدر ها </h5>
+				<a asp-area="Admin" asp-controller="HeroSection" asp-action="Upsert" class="btn o-primary  text-center">اضافه کردن</a>
+			</div>
+			<hr>
+			<table id="HTable" class="table table-striped m-1" style="width:100%">
+				<thead>
+					<tr>
+						<th scope="col">شماره ردیف</th>
+
+						<th scope="col">سر تیتر </th>
+						<th scope="col">توضیحات</th>
+
+						<th scope="col">عکس</th>
+
+
+						<th scope="col">
+							تنظیمات
+						</th>
+
+					</tr>
+				</thead>
+				<tbody>
+					@{
+						int counter = 1; // شمارنده دستی
+					}
+
+					@foreach (var obj in Model)
+					{
+						<tr>
+							<td>
+								@counter
+							</td>
+
+							<td>@obj.Title</td>
+							<td>
+								@obj.Subtitle
+							</td>
+							<td><img src="@obj.OriginalImagePath" class="img-fluid rounded" style="max-width:80px; max-height:80px;" /> </td>
+
+
+
+							<td>
+
+								<a asp-area="Admin" asp-controller="HeroSection" asp-action="Upsert" asp-route-id="@obj.Id" class="btn c-warning"><i class="fa fa-edit"></i></a>
+								@* <a asp-area="Admin" asp-controller="HeroSection" asp-action="Delete" asp-route-id="@obj.Id" class="btn c-forth"><i class="fa fa-trash"></i></a> *@
+							</td>
+						</tr>
+						counter++;
+					}
+				</tbody>
+			</table>
+		</div>
+
+	</div>
+</div>
+@section Scripts
+{
+	<script>
+		$(document).ready(function () {
+			 $('#HTable').DataTable({
+				 responsive: true, // برای ریسپانسیو کردن جدول
+				 autoWidth: false, // جلوگیری از عرض خودکار
+				 dom: '<"row"<"col-sm-6"f><"col-sm-6"l>>' +
+					  '<"row"<"col-sm-12"tr>>' +
+					  '<"row"<"col-sm-5"i><"col-sm-7"p>>',
+							 pageLength: 5, // تعداد پیش‌فرض رکوردها
+		lengthMenu: [[5, 10, 20, -1], ["5", "10", "20", "همه"]], // اضافه کردن گزینه 5 تایی
+		scrollY: "50vh", // محدود کردن ارتفاع جدول
+		scrollCollapse: true, // فعال کردن اسکرول وقتی رکوردها بیشتر از ارتفاع هستند
+
+				 language: {
+					 decimal: "",
+					 emptyTable: "هیچ داده‌ای موجود نیست",
+					 info: "نمایش _START_ تا _END_ از _TOTAL_ رکورد",
+					 infoEmpty: "نمایش 0 تا 0 از 0 رکورد",
+					 infoFiltered: "(فیلتر شده از _MAX_ رکورد)",
+					 lengthMenu: "نمایش _MENU_ رکورد در هر صفحه",
+					 loadingRecords: "در حال بارگذاری...",
+					 processing: "در حال پردازش...",
+					 search: "جستجو:",
+					 zeroRecords: "رکوردی مطابق با جستجوی شما یافت نشد",
+					 paginate: {
+						 first: "اولین",
+						 last: "آخرین",
+						 next: "بعدی",
+						 previous: "قبلی"
+					 },
+					 aria: {
+						 sortAscending: ": فعال‌سازی مرتب‌سازی صعودی",
+						 sortDescending: ": فعال‌سازی مرتب‌سازی نزولی"
+					 }
+				 }
+			 });
+		});
+	</script>
+}

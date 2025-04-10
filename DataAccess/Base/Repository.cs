@@ -18,6 +18,8 @@ namespace DataAccess.Base
             this.dbSet = _db.Set<T>();
         }
 
+      
+
         public IQueryable<T> FindAll(string? includeProperties = null)
         {
             IQueryable<T> query = dbSet;

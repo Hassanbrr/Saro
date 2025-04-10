@@ -22,6 +22,8 @@ namespace DataAccess.Context
         public DbSet<Category> Categories { get; set; }
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
         public DbSet<NavbarItem> NavbarItems { get; set; }
+        public DbSet<HeroSection> HeroSections { get; set; }
+
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
