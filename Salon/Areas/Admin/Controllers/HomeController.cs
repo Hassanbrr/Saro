@@ -8,7 +8,7 @@ using Utility;
 namespace Salon.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize(Roles = Sd.Role_Admin)]
+    //[Authorize(Roles = Sd.Role_Admin)]
     public class HomeController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;

@@ -1,0 +1,32 @@
+﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model Domain.Models.Website.ViewModel.NavbarItemViewModel
+
+<form method="post">
+	<div class="form-group">
+		<label>عنوان</label>
+		<input type="text" class="form-control" asp-for="NavbarItem.Title" />
+	</div>
+	<div class="form-group">
+		<label>لینک</label>
+		<input type="text" class="form-control" asp-for="NavbarItem.Url" />
+	</div>
+	<div class="form-group">
+		<label>order</label>
+		<input  class="form-control" asp-for="NavbarItem.Order" />
+	</div>
+	<div class="form-group">
+		<label>آیتم والد</label>
+		<select class="form-control" asp-for="NavbarItem.ParentId">
+			<option value="">(بدون والد)</option>
+			@foreach (var parent in Model.ParentItems)
+			{
+				<option value="@parent.NavBarItemId">@parent.Title</option>
+			}
+		</select>
+	</div>
+	<div class="form-group">
+		<label>وضعیت</label>
+		<input type="checkbox" asp-for="NavbarItem.IsActive" /> فعال
+	</div>
+	<button type="submit" class="btn btn-success">ذخیره</button>
+</form>

@@ -1,0 +1,132 @@
+﻿@using Domain.Models.Website
+@model List<NavbarItem>
+
+
+ 
+
+<div class="col-xs-1 col-sm-1 col-md-8 col-lg-8 p-2">
+	<div class="row">
+		<div class="page-header breadcrumb-header p-3 mr-2 ml-2 m-2">
+			<div class="row align-items-end ">
+				<div class="col-lg-8">
+					<div class="page-header-title text-left-rtl">
+						<div class="d-inline">
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-4">
+					<ol class="breadcrumb float-sm-right">
+						<li class="breadcrumb-item "><a href="#"><i class="fas fa-home"></i></a></li>
+						<li class="breadcrumb-item active">نوبار </li>
+
+					</ol>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="card shade h-100">
+		<div class="card-body">
+
+			<div class="d-flex justify-content-around">
+				<h5 class="card-title">لیست خدمات </h5>
+				<a asp-area="Admin" asp-controller="NavBarItem" asp-action="Create" class="btn o-primary  text-center">اضافه کردن</a>
+			</div>
+			<hr>
+			<ul id="sortable-list" class="list-group">
+				@foreach (var item in Model.OrderBy(n => n.Order))
+				{
+					<li class="list-group-item d-flex justify-content-between align-items-center" data-id="@item.NavBarItemId">
+						@item.Title
+						<div class="d-inline-flex  ">
+							<a asp-area="Admin" asp-controller="NavBarItem" asp-action="Create" asp-route-id="@item.NavBarItemId" class="btn outlined c-warning mx-2 px-4 rounded">
+								<i class="bi bi-pencil-square"></i>ویرایش
+							</a>
+							<a asp-area="Admin" asp-controller="Service" asp-action="Delete" asp-route-id="@item.NavBarItemId" class="btn outlined c-danger mx-2 px-4 rounded">
+								<i class="bi bi-trash3-fill"></i>حذف
+							</a>
+						</div>
+						@if (item.Children != null && item.Children.Any())
+						{
+							<ul>
+								@foreach (var child in item.Children.OrderBy(c => c.Order))
+								{
+									<li class="list-group-item" data-id="@child.NavBarItemId">@child.Title</li>
+								}
+							</ul>
+						}
+					</li>
+				}
+			</ul>
+		</div>
+
+	</div>
+</div>
+
+
+@section Scripts
+{
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js"></script>
+	<script>
+    var sortable = new Sortable(document.getElementById('sortable-list'), {
+        animation: 150,
+        onEnd: function () {
+            var orderedIds = [];
+            document.querySelectorAll('#sortable-list li').forEach(function (el) {
+                orderedIds.push(el.dataset.id);
+            });
+
+            fetch('@Url.Action("UpdateOrder", "NavBarItem")', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(orderedIds)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert(data.message);
+                } else {
+                    alert("خطا: " + data.message);
+                }
+            });
+        }
+    });
+</script>
+	<script>
+
+		$(document).ready(function () {
+			 $('#CTable').DataTable({
+				 responsive: true, // برای ریسپانسیو کردن جدول
+				 autoWidth: false, // جلوگیری از عرض خودکار
+				 dom: '<"row"<"col-sm-6"f><"col-sm-6"l>>' +
+					  '<"row"<"col-sm-12"tr>>' +
+					  '<"row"<"col-sm-5"i><"col-sm-7"p>>',
+				 language: {
+					 decimal: "",
+					 emptyTable: "هیچ داده‌ای موجود نیست",
+					 info: "نمایش _START_ تا _END_ از _TOTAL_ رکورد",
+					 infoEmpty: "نمایش 0 تا 0 از 0 رکورد",
+					 infoFiltered: "(فیلتر شده از _MAX_ رکورد)",
+					 lengthMenu: "نمایش _MENU_ رکورد در هر صفحه",
+					 loadingRecords: "در حال بارگذاری...",
+					 processing: "در حال پردازش...",
+					 search: "جستجو:",
+					 zeroRecords: "رکوردی مطابق با جستجوی شما یافت نشد",
+					 paginate: {
+						 first: "اولین",
+						 last: "آخرین",
+						 next: "بعدی",
+						 previous: "قبلی"
+					 },
+					 aria: {
+						 sortAscending: ": فعال‌سازی مرتب‌سازی صعودی",
+						 sortDescending: ": فعال‌سازی مرتب‌سازی نزولی"
+					 }
+				 }
+			 });
+		});
+	</script>
+}
+ 

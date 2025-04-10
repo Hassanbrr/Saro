@@ -1540,3 +1540,10 @@ a.btn-link.text-light:after {
   background-size: cover;
   transition: transform .3s ease-out;
 }
+.responsive-image {
+    max-width: 200px;
+    max-height: 200px;
+    object-fit:contain;
+    display:block;
+    margin:0 auto;
+}

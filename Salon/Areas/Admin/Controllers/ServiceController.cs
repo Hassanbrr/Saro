@@ -1,4 +1,5 @@
-﻿using DataAccess.Base;
+﻿using System.Globalization;
+using DataAccess.Base;
 using DataAccess.Context;
 using Domain.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
@@ -7,12 +8,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Utility;
+using Utility.Helpers;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace Salon.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize(Roles = Sd.Role_Admin)]
+    //[Authorize(Roles = Sd.Role_Admin)]
 
     public class ServiceController : Controller
     {
@@ -32,7 +34,7 @@ namespace Salon.Areas.Admin.Controllers
         }
 
 
-        public IActionResult Upsert(int? id,IFormFile? file)
+        public IActionResult Upsert(int? id, IFormFile? file)
         {
             ServiceVm serviceList = new()
             {
@@ -58,8 +60,11 @@ namespace Salon.Areas.Admin.Controllers
 
         }
         [HttpPost]
-        public   IActionResult Upsert(ServiceVm obj, IFormFile file)
+        public IActionResult Upsert(ServiceVm obj, IFormFile file)
         {
+           
+
+
             if (ModelState.IsValid)
             {
 
@@ -88,21 +93,26 @@ namespace Salon.Areas.Admin.Controllers
                     {
                         file.CopyTo(fileStream);
                     }
-                  
+
 
                     obj.Services.ImageUrl = @"\Images\Service\" + fileName;
-                    string rawPrice = obj.Services.Price.ToString(); // مقدار به‌صورت رشته
-                    string cleanPrice = rawPrice.Replace(",", "");   // حذف کاماها
-                    obj.Services.Price = decimal.Parse(cleanPrice);
-
+                    if (!string.IsNullOrEmpty(obj.Services.Price.ToString()))
+                    {
+                        string rawPrice = obj.Services.Price.ToString();
+                        rawPrice = rawPrice.Replace(",", "").Replace("٬", ""); // حذف کاماهای فارسی
+                        obj.Services.Price = decimal.Parse(rawPrice, CultureInfo.InvariantCulture); // تبدیل به عدد
+                    }
                 }
                 if (obj.Services.ServiceId == 0)
                 {
-              
-                   _unitOfWork.Service.Create(obj.Services);
+                    obj.Services.CreatedAt = DateTime.Now;
+                    _unitOfWork.Service.Create(obj.Services);
                 }
                 else
                 {
+                    var existingService = _unitOfWork.Service.FindByCondition(u=>u.ServiceId == obj.Services.ServiceId).AsNoTracking().FirstOrDefault(); // دریافت رکورد موجود
+                    obj.Services.CreatedAt = existingService.CreatedAt;
+                    obj.Services.UpdatedAt = DateTime.Now;
                     _unitOfWork.Service.Update(obj.Services);
                 }
                 _unitOfWork.SaveChanges();
@@ -126,10 +136,10 @@ namespace Salon.Areas.Admin.Controllers
             }
         }
 
- 
+
         public IActionResult Delete(int id)
         {
-            var service = _unitOfWork.Service.FindByCondition(u=>id == u.ServiceId).FirstOrDefault();
+            var service = _unitOfWork.Service.FindByCondition(u => id == u.ServiceId).FirstOrDefault();
             if (service == null)
             {
                 return NotFound();

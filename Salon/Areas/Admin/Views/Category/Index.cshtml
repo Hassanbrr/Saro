@@ -1,11 +1,13 @@
-﻿@model List<Category>
-<div class="col-xs-1 col-sm-1 col-md-8 col-lg-8 p-2">
+﻿ 
+@model List<Category>
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 p-2">
+
 	<div class="row">
 		<div class="page-header breadcrumb-header p-3 mr-2 ml-2 m-2">
 			<div class="row align-items-end ">
 				<div class="col-lg-8">
 					<div class="page-header-title text-left-rtl">
-						<div class="d-inline"> 
+						<div class="d-inline">
 						</div>
 					</div>
 				</div>
@@ -19,22 +21,25 @@
 			</div>
 		</div>
 	</div>
-	<div class="card shade h-100">
-		<div class="card-body">
+	<div class="card shade h-100  ">
+		<div class="card-body table-responsive">
 
 			<div class="d-flex justify-content-around">
 				<h5 class="card-title">لیست دسته بندی ها  </h5>
 				<a asp-area="Admin" asp-controller="Category" asp-action="Upsert" class="btn o-primary  text-center">اضافه کردن</a>
 			</div>
 			<hr>
-			<table class="table table-striped m-1 table-responsive" style="overflow: auto; max-height: 600px;">
+			<table id="CTable" class="table table-striped   m-1" style="width:100%">
 				<thead>
 					<tr>
 						<th>شناسه</th>
 						<th>نام دسته‌بندی</th>
-						<th>اسلاگ‌ </th> 
+						<th>اسلاگ‌ </th>
 						<th>والد</th>
-						<th>توضیحات</th> 
+						<th>توضیحات</th>
+						<th>تاریخ ساخت</th>
+						<th>تاریخ ویرایش</th>
+
 						<th>عملیات</th>
 					</tr>
 				</thead>
@@ -60,10 +65,12 @@
 								}
 							</td>
 							<td>@category.Description</td>
+							<td> @category.CreatedAt</td>
+							<td>  @category.UpdatedAt</td>
 
 							<td>
-								<a asp-area="Admin" asp-controller="Category" asp-action="Upsert" asp-route-id="@category.CategoryId" class="btn outlined   outlined c-warning  ">ویرایش</a>
-								<a class="btn outlined  outlined c-danger" asp-area="Admin" asp-controller="Category" asp-action="Delete" asp-route-id="@category.CategoryId">حذف</a>
+								<a asp-area="Admin" asp-controller="Category" asp-action="Upsert" asp-route-id="@category.CategoryId" class="btn c-warning"><i class="fa fa-edit"></i></a>
+								<a asp-area="Admin" asp-controller="Category" asp-action="Delete" asp-route-id="@category.CategoryId" class="btn c-forth "><i class="fa fa-trash"></i></a>
 							</td>
 						</tr>
 
@@ -75,3 +82,44 @@
 
 	</div>
 </div>
+@section Scripts
+{
+	<script>
+		$(document).ready(function () {
+			 $('#CTable').DataTable({
+				 responsive: true, // برای ریسپانسیو کردن جدول
+				 autoWidth: false, // جلوگیری از عرض خودکار
+				 dom: '<"row"<"col-sm-6"f><"col-sm-6"l>>' +
+					  '<"row"<"col-sm-12"tr>>' +
+					  '<"row"<"col-sm-5"i><"col-sm-7"p>>',
+							 pageLength: 5, // تعداد پیش‌فرض رکوردها
+		lengthMenu: [[5, 10, 20, -1], ["5", "10", "20", "همه"]], // اضافه کردن گزینه 5 تایی
+		scrollY: "50vh", // محدود کردن ارتفاع جدول
+		scrollCollapse: true, // فعال کردن اسکرول وقتی رکوردها بیشتر از ارتفاع هستند
+
+				 language: {
+					 decimal: "",
+					 emptyTable: "هیچ داده‌ای موجود نیست",
+					 info: "نمایش _START_ تا _END_ از _TOTAL_ رکورد",
+					 infoEmpty: "نمایش 0 تا 0 از 0 رکورد",
+					 infoFiltered: "(فیلتر شده از _MAX_ رکورد)",
+					 lengthMenu: "نمایش _MENU_ رکورد در هر صفحه",
+					 loadingRecords: "در حال بارگذاری...",
+					 processing: "در حال پردازش...",
+					 search: "جستجو:",
+					 zeroRecords: "رکوردی مطابق با جستجوی شما یافت نشد",
+					 paginate: {
+						 first: "اولین",
+						 last: "آخرین",
+						 next: "بعدی",
+						 previous: "قبلی"
+					 },
+					 aria: {
+						 sortAscending: ": فعال‌سازی مرتب‌سازی صعودی",
+						 sortDescending: ": فعال‌سازی مرتب‌سازی نزولی"
+					 }
+				 }
+			 });
+		});
+	</script>
+}

@@ -27,6 +27,9 @@ public class Category
 
     // ارتباط با خدمات
     public virtual ICollection<Service>? Services { get; set; }
-    public DateTime CreatedAt { get; set; }
-    public DateTime UpdatedAt { get; set; } = DateTime.Now;
+    [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}")] 
+    public DateTime? CreatedAt { get; set; }
+ 
+    [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}")] 
+    public DateTime? UpdatedAt { get; set; }  
 }

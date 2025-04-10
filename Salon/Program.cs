@@ -6,8 +6,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Utility;
 using Microsoft.AspNetCore.Identity.UI.Services;
+using Utility.Helpers;
 
 var builder = WebApplication.CreateBuilder(args);
+
+ 
+PersianCultureConfig.ConfigurePersianCulture();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

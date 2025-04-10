@@ -26,7 +26,8 @@
           integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link asp-append-version="true" rel="stylesheet" href="~/css/datatables.datatables.min.css" />
     <link asp-append-version="true" rel="stylesheet" href="~/css/main.css">
 </head>
 
@@ -223,7 +224,6 @@
     <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js"
             integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9" crossorigin="anonymous">
     </script>
-
     <script src="~/js/persianumber.min.js"></script>
     <script>
         $(document).ready(function () {
@@ -232,8 +232,9 @@
 
         });
     </script>
- 
-    <script src="~/js/site.js"></script>
+    <script src="~/js/dataTables.min.js"></script>
+
+<script src="~/js/site.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 
 </body>

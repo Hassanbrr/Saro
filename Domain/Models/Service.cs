@@ -12,6 +12,7 @@ public class Service
     [DisplayName("نام خدمات")]
     public string ServiceName { get; set; }
     [DisplayName("قیمت")]
+    [DisplayFormat(DataFormatString = "{0:N0}", ApplyFormatInEditMode = true)] 
     public decimal Price { get; set; }
     [DisplayName("مدت زمان")]
     public int Duration { get; set; }
@@ -31,7 +32,12 @@ public class Service
     public int? CategoryId { get; set; }
     [ValidateNever]
     public virtual Category? Category { get; set; }
-    public  DateTime? CreatedAt { get; set; }
+    [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}")]
+
+
+    public DateTime? CreatedAt { get; set; }
+    [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}")]
+
     public DateTime? UpdatedAt { get; set; }
    
 }

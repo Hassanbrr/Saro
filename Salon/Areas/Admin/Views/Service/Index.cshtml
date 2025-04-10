@@ -1,6 +1,7 @@
 ﻿@model List<Service>
 
-<div class="col-xs-1 col-sm-1 col-md-8 col-lg-8 p-2">
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 p-2">
+
 	<div class="row">
 		<div class="page-header breadcrumb-header p-3 mr-2 ml-2 m-2">
 			<div class="row align-items-end ">
@@ -22,14 +23,14 @@
 	</div>
 
 	<div class="card shade h-100">
-		<div class="card-body">
+		<div class="card-body w-100 table-responsive ">
 
 			<div class="d-flex justify-content-around">
 				<h5 class="card-title">لیست خدمات </h5>
 				<a asp-area="Admin" asp-controller="Service" asp-action="Upsert" class="btn o-primary  text-center">اضافه کردن</a>
 			</div>
 			<hr>
-			<table class="table table-striped m-1 table-responsive" style=" overflow: auto; max-height:100% ; max-width:100%;">
+			<table id="STable" class="table table-striped m-1" style="width:100%">
 				<thead>
 					<tr>
 						<th scope="col">ردیف</th>
@@ -40,9 +41,11 @@
 						<th scope="col">دسته بندی</th>
 						<th scope="col">توضیحات</th>
 						<th scope="col"> عکس</th>
-						<th scope="col">
-							تنظیمات
+						<th scope="col"> زمان ساخت</th> 
+						<th scope="col"> زمان ویرایش</th>
 
+						<th scope="col">
+							تنظیمات 
 						</th>
 
 					</tr>
@@ -77,17 +80,15 @@
 							</td>
 							<td>@service.Description</td>
 							<td>
-								<img src="@service.ImageUrl" width="80px" height="80px" />
+								<img src="@service.ImageUrl" class="img-fluid rounded" style="max-width:80px; max-height:80px;" />
 							</td>
+							<td>@service.CreatedAt </td>
+							<td>@service.UpdatedAt </td>
+
 							<td>
 
-								<a asp-area="Admin" asp-controller="Service" asp-action="Upsert" asp-route-id="@service.ServiceId" class="btn outlined c-warning mx-2 px-4 rounded">
-									<i class="bi bi-pencil-square"></i>ویرایش
-								</a>
-								<a asp-area="Admin" asp-controller="Service" asp-action="Delete" asp-route-id="@service.ServiceId" class="btn outlined c-danger mx-2 px-4 rounded">
-									<i class="bi bi-trash3-fill"></i>حذف
-								</a>
-
+								<a asp-area="Admin" asp-controller="Service" asp-action="Upsert" asp-route-id="@service.ServiceId" class="btn c-warning"><i class="fa fa-edit"></i></a>
+								<a asp-area="Admin" asp-controller="Service" asp-action="Delete" asp-route-id="@service.ServiceId" class="btn c-forth"><i class="fa fa-trash"></i></a>
 							</td>
 						</tr>
 						counter++;
@@ -98,3 +99,42 @@
 
 	</div>
 </div>
+@section Scripts
+{
+	<script>
+
+
+		$(document).ready(function () {
+			 $('#STable').DataTable({
+				 responsive: true, // برای ریسپانسیو کردن جدول
+				 autoWidth: false, // جلوگیری از عرض خودکار
+				 dom: '<"row"<"col-sm-6"f><"col-sm-6"l>>' +
+					  '<"row"<"col-sm-12"tr>>' +
+					  '<"row"<"col-sm-5"i><"col-sm-7"p>>',
+
+				 language: {
+					 decimal: "",
+					 emptyTable: "هیچ داده‌ای موجود نیست",
+					 info: "نمایش _START_ تا _END_ از _TOTAL_ رکورد",
+					 infoEmpty: "نمایش 0 تا 0 از 0 رکورد",
+					 infoFiltered: "(فیلتر شده از _MAX_ رکورد)",
+					 lengthMenu: "نمایش _MENU_ رکورد در هر صفحه",
+					 loadingRecords: "در حال بارگذاری...",
+					 processing: "در حال پردازش...",
+					 search: "جستجو:",
+					 zeroRecords: "رکوردی مطابق با جستجوی شما یافت نشد",
+					 paginate: {
+						 first: "اولین",
+						 last: "آخرین",
+						 next: "بعدی",
+						 previous: "قبلی"
+					 },
+					 aria: {
+						 sortAscending: ": فعال‌سازی مرتب‌سازی صعودی",
+						 sortDescending: ": فعال‌سازی مرتب‌سازی نزولی"
+					 }
+				 }
+			 });
+		});
+	</script>
+}

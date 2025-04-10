@@ -7,11 +7,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Utility;
+using Utility.Helpers;
 
 namespace Salon.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize(Roles = Sd.Role_Admin)]
+    //[Authorize(Roles = Sd.Role_Admin)]
     public class CategoryController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -64,10 +65,14 @@ namespace Salon.Areas.Admin.Controllers
             {
                 if (obj.Category.CategoryId == 0)
                 {
+                    obj.Category.CreatedAt = DateTime.Now; 
                     _unitOfWork.Category.Create(obj.Category);
                 }
                 else
                 {
+                    var existingService = _unitOfWork.Category.FindByCondition(u => u.CategoryId == obj.Category.CategoryId).AsNoTracking().FirstOrDefault(); // دریافت رکورد موجود
+                    obj.Category.CreatedAt = existingService.CreatedAt;
+                    obj.Category.UpdatedAt=DateTime.Now; 
                     _unitOfWork.Category.Update(obj.Category);
                 }
                 _unitOfWork.SaveChanges();
