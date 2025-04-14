@@ -31,7 +31,7 @@
 
 	<form method="post" action="" class="d-flex" enctype="multipart/form-data">
 		<input asp-for="Id" hidden />
-		<input asp-for="OriginalImagePath" hidden />
+		<input asp-for="ImageUrl" hidden />
 		<div class="col-lg-10 col-sm-10 ">
 
 			<div class="mb-3 col-lg-10 col-md-8 col-sm-8">
@@ -54,11 +54,11 @@
 			</div>
 
 			<div class="mb-3 col-lg-10 col-md-8 col-sm-8 ">
-				<label asp-for="OriginalImagePath" class="p-0"></label>
-				<input asp-for="OriginalImagePath" type="file" name="file" class="form-control" />
-				<span asp-validation-for="OriginalImagePath" class="text-info"></span>
+				<label asp-for="ImageUrl" class="p-0"></label>
+				<input asp-for="ImageUrl" type="file" name="file" class="form-control" />
+				<span asp-validation-for="ImageUrl" class="text-info"></span>
 				<div clas="col-2 ">
-					<img alt="Profile Image" src="@Model..ImageUrl" width="200px" height="200px" />
+					<img alt="Profile Image" src="@Model.ImageUrl" width="200px" height="200px" />
 				</div>
 
 			</div>

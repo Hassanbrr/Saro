@@ -14,13 +14,8 @@ namespace Domain.Models.Website
 
         [Required]
         [ValidateNever]
-        public string OriginalImagePath { get; set; }
-        [Required]
-        [ValidateNever]
-        public string LeftPartPath { get; set; } // نیمه چپ
-        [Required]
-        [ValidateNever]
-        public string RightPartPath { get; set; } // نیمه راست
+        public string ImageUrl { get; set; }
+ 
         [Required]
 
         public string Slug { get; set; }  

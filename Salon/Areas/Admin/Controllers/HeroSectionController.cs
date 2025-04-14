@@ -54,37 +54,31 @@ namespace Salon.Areas.Admin.Controllers
                 if (file != null)
                 {
                     string wwwRootPath = _webHostEnvironment.WebRootPath;
-                    string fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+                    //finaly name
+                    string fileName = Guid.NewGuid().ToString() + Path.GetFileNameWithoutExtension(file.FileName) + ".jpg";
+                    //finaly masir
+                    string productPath = Path.Combine(wwwRootPath, @"Images\Hero");
 
-                    // مسیر اصلی - دقت به حروف بزرگ/کوچک
-                    string originalPath = Path.Combine(wwwRootPath, @"images\Hero", fileName);
-
-                    using (var fileStream = new FileStream(originalPath, FileMode.Create))
+                    if (!string.IsNullOrEmpty(obj.ImageUrl))
                     {
-                        await file.CopyToAsync(fileStream);
+                        //delete old image
+                        var OldImagePath = Path.Combine(wwwRootPath, obj.ImageUrl.TrimStart('\\'));
+
+                        if (System.IO.File.Exists(OldImagePath))
+                        {
+                            System.IO.File.Delete(OldImagePath);
+                        }
+
                     }
 
-                    // تقسیم عکس
-                    using (var image = Image.Load(file.OpenReadStream()))
+                    //uplode new image
+                    using (var fileStream = new FileStream(Path.Combine(productPath, fileName), FileMode.Create))
                     {
-                        int width = image.Width;
-                        int height = image.Height;
-
-                        // نیمه چپ
-                        var leftHalf = image.Clone(ctx => ctx.Crop(new Rectangle(0, 0, width / 2, height)));
-                        string leftPath = Path.Combine(wwwRootPath, @"images\Hero\left_" + fileName);
-                        await leftHalf.SaveAsync(leftPath);
-
-                        // نیمه راست
-                        var rightHalf = image.Clone(ctx => ctx.Crop(new Rectangle(width / 2, 0, width / 2, height)));
-                        string rightPath = Path.Combine(wwwRootPath, @"images\Hero\right_" + fileName);
-                        await rightHalf.SaveAsync(rightPath);
-
-                        // مقداردهی به obj اصلی (نه ایجاد شیء جدید)
-                        obj.OriginalImagePath = @"\images\Hero\" + fileName;
-                        obj.LeftPartPath = @"\images\Hero\left_" + fileName;
-                        obj.RightPartPath = @"\images\Hero\right_" + fileName;
+                        file.CopyTo(fileStream);
                     }
+
+
+                    obj.ImageUrl = @"\Images\Hero\" + fileName;
 
                     if (obj.Id == 0)
                     {

@@ -1,67 +1,37 @@
 ﻿@model List<Domain.Models.Website.HeroSection>
 
-<style>
-    .hero-container {
-        position: relative;
-        height: 100vh;
-        overflow-x: hidden;
-        overflow-y: scroll;
-        scroll-snap-type: y mandatory;
-    }
-
-    .hero-slide {
-        position: relative;
-        display: flex;
-        height: 100vh;
-        scroll-snap-align: start;
-    }
-
-    .hero-half {
-        flex: 1;
-        background-size: cover;
-        background-position: center;
-        transition: transform 1s ease;
-    }
-
-    .left-half {
-        transform: translateY(0);
-    }
-
-    .right-half {
-        transform: translateY(0);
-    }
-
-    .hero-slide.in-view .left-half {
-        transform: translateY(20%);
-    }
-
-    .hero-slide.in-view .right-half {
-        transform: translateY(-20%);
-    }
-</style>
-
-<div class="hero-container">
-	@foreach (var item in Model)
-	{
-		<div class="hero-slide">
-            <div class="hero-half left-half" style="background-image: url('@Url.Content(item.LeftPartPath)');"></div>
-            <div class="hero-half right-half" style="background-image: url('@Url.Content(item.RightPartPath)');"></div>
+<section id="carousel">
+	<div id="salonCarousel" class="carousel slide" data-bs-ride="carousel">
+		<!-- Indicators -->
+		<div class="carousel-indicators">
+			@for (int i = 0; i < Model.Count; i++)
+			{
+				<button type="button" data-bs-target="#salonCarousel" data-bs-slide-to="@i" class="@(i == 0 ? "active" : "")" aria-label="Slide @(i+1)"></button>
+			}
 		</div>
-	}
-</div>
 
-<script>
-    const slides = document.querySelectorAll('.hero-slide');
+		<!-- Slides -->
+		<div class="carousel-inner">
+			@foreach (var hero in Model)
+			{
+				<div class="carousel-item @(hero == Model.First() ? "active" : "")">
+					<img src="@hero.ImageUrl" class="d-block w-100" alt="@hero.Title" style="height: 87vh; object-fit:cover;">
+					<div class="carousel-caption d-none">
+						<h5>@hero.Title</h5>
+						<p>@hero.Subtitle</p>
+					</div>
+				</div>
+			}
+		</div>
 
-    const observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('in-view');
-            } else {
-                entry.target.classList.remove('in-view');
-            }
-        });
-    }, { threshold: 0.5 });
-
-    slides.forEach(slide => observer.observe(slide));
-</script>
+		<!-- Controls -->
+		<button class="carousel-control-prev" type="button" data-bs-target="#salonCarousel" data-bs-slide="prev">
+			<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+			<span class="visually-hidden">Previous</span>
+		</button>
+		<button class="carousel-control-next" type="button" data-bs-target="#salonCarousel" data-bs-slide="next">
+			<span class="carousel-control-next-icon" aria-hidden="true"></span>
+			<span class="visually-hidden">Next</span>
+		</button>
+	</div>
+</section>

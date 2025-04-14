@@ -1,0 +1,96 @@
+﻿<section id="billboard" class="bg-light py-5" dir="rtl">
+	<div class="container">
+		<div class="row justify-content-center">
+			<h1 class="section-title text-center mt-4" data-aos="fade-up"> Saro Beauty Lounge  </h1>
+			<div class="col-md-6 text-center" data-aos="fade-up" data-aos-delay="300">
+				<p>
+					سالن زیبایی ما با ارائه خدمات حرفه‌ای در زمینه مراقبت از پوست، مو و ناخن، تجربه‌ای متفاوت از زیبایی را برای شما رقم می‌زند. با بهره‌گیری از متخصصان مجرب و استفاده از بهترین محصولات آرایشی، محیطی آرامش‌بخش و لوکس را فراهم کرده‌ایم. ما به رضایت شما اهمیت می‌دهیم و در تلاشیم تا زیبایی طبیعی‌تان را با روش‌های نوین و استانداردهای بین‌المللی تقویت کنیم.
+
+				</p>
+			</div>
+		</div>
+		<div class="container">
+			<div class="open-up" data-aos="zoom-out">
+				<div class="row">
+
+					<div class="col-md-4  py-5">
+						<div class="cat-item image-zoom-effect">
+							<div class="image-holder link-hover">
+								<a href="index.html">
+									<img src="~/Clint/images/cat-item2.jpg" alt="categories" class="product-image img-fluid">
+								</a>
+							</div>
+							<div class="category-content">
+								<div class="product-button">
+									<a href="index.html" class="btn btn-common text-uppercase">Shop for women</a>
+								</div>
+							</div>
+						</div>
+					</div><div class="col-md-4  py-5">
+						<div class="cat-item image-zoom-effect">
+							<div class="image-holder link-hover">
+								<a href="index.html">
+									<img src="~/Clint/images/cat-item2.jpg" alt="categories" class="product-image img-fluid">
+								</a>
+							</div>
+							<div class="category-content">
+								<div class="product-button">
+									<a href="index.html" class="btn btn-common text-uppercase">Shop for women</a>
+								</div>
+							</div>
+						</div>
+					</div><div class="col-md-4  py-5">
+						<div class="cat-item image-zoom-effect">
+							<div class="image-holder link-hover">
+								<a href="index.html">
+									<img src="~/Clint/images/cat-item2.jpg" alt="categories" class="product-image img-fluid">
+								</a>
+							</div>
+							<div class="category-content">
+								<div class="product-button">
+									<a href="index.html" class="btn btn-common text-uppercase">Shop for women</a>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-4  py-5">
+						<div class="cat-item image-zoom-effect">
+							<div class="image-holder link-hover">
+								<a href="index.html">
+									<img src="~/Clint/images/cat-item3.jpg" alt="categories" class="product-image img-fluid">
+								</a>
+							</div>
+							<div class="category-content">
+								<div class="product-button">
+									<a href="index.html" class="btn btn-common text-uppercase">Shop accessories</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+@section Scripts
+{
+	<script>
+		document.addEventListener("DOMContentLoaded", function () {
+			var swiper = new Swiper('.main-swiper', {
+				loop: true, // فعال کردن چرخش بی‌پایان
+				autoplay: {
+					delay: 1000, // مدت زمان توقف روی هر اسلاید (2 ثانیه)
+					disableOnInteraction: false // تعامل کاربر Autoplay را متوقف نمی‌کند
+				},
+				pagination: {
+					el: '.swiper-pagination',
+					clickable: true
+				},
+				navigation: {
+					nextEl: '.carousel-control-next',
+					prevEl: '.carousel-control-prev'
+				}
+			});
+		});
+	</script>
+}

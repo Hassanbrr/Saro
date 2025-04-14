@@ -60,49 +60,46 @@ namespace Salon.Areas.Admin.Controllers
 
         }
         [HttpPost]
-        public IActionResult Upsert(ServiceVm obj, IFormFile file)
+        public async Task<IActionResult> Upsert(ServiceVm obj, IFormFile file)
         {
-           
-
-
             if (ModelState.IsValid)
             {
-
                 if (file != null)
                 {
                     string wwwRootPath = _webHostEnvironment.WebRootPath;
-                    //finaly name
+
+                    // نام فایل نهایی
                     string fileName = Guid.NewGuid().ToString() + Path.GetFileNameWithoutExtension(file.FileName) + ".jpg";
-                    //finaly masir
+
+                    // مسیر ذخیره نهایی
                     string productPath = Path.Combine(wwwRootPath, @"Images\Service");
 
+                    // حذف تصویر قدیمی اگر وجود داشته باشد
                     if (!string.IsNullOrEmpty(obj.Services.ImageUrl))
                     {
-                        //delete old image
                         var OldImagePath = Path.Combine(wwwRootPath, obj.Services.ImageUrl.TrimStart('\\'));
 
                         if (System.IO.File.Exists(OldImagePath))
                         {
                             System.IO.File.Delete(OldImagePath);
                         }
-
                     }
 
-                    //uplode new image
-                    using (var fileStream = new FileStream(Path.Combine(productPath, fileName), FileMode.Create))
-                    {
-                        file.CopyTo(fileStream);
-                    }
+                    // تغییر اندازه تصویر و ذخیره آن
+                    string savePath = Path.Combine(productPath, fileName); // مسیر ذخیره تصویر جدید
+                    await ImageHelper.ResizeImageAsync(file, savePath); // استفاده از متد تغییر اندازه
 
-
-                    obj.Services.ImageUrl = @"\Images\Service\" + fileName;
-                    if (!string.IsNullOrEmpty(obj.Services.Price.ToString()))
-                    {
-                        string rawPrice = obj.Services.Price.ToString();
-                        rawPrice = rawPrice.Replace(",", "").Replace("٬", ""); // حذف کاماهای فارسی
-                        obj.Services.Price = decimal.Parse(rawPrice, CultureInfo.InvariantCulture); // تبدیل به عدد
-                    }
+                    obj.Services.ImageUrl = @"\Images\Service\" + fileName; // مسیر ذخیره شده برای پایگاه داده
                 }
+
+                if (!string.IsNullOrEmpty(obj.Services.Price.ToString()))
+                {
+                    string rawPrice = obj.Services.Price.ToString();
+                    rawPrice = rawPrice.Replace(",", "").Replace("٬", ""); // حذف کاماهای فارسی
+                    obj.Services.Price = decimal.Parse(rawPrice, CultureInfo.InvariantCulture); // تبدیل به عدد
+                }
+
+                // ذخیره یا بروزرسانی رکورد در پایگاه داده
                 if (obj.Services.ServiceId == 0)
                 {
                     obj.Services.CreatedAt = DateTime.Now;
@@ -110,11 +107,14 @@ namespace Salon.Areas.Admin.Controllers
                 }
                 else
                 {
-                    var existingService = _unitOfWork.Service.FindByCondition(u=>u.ServiceId == obj.Services.ServiceId).AsNoTracking().FirstOrDefault(); // دریافت رکورد موجود
+                    var existingService = _unitOfWork.Service.FindByCondition(u => u.ServiceId == obj.Services.ServiceId)
+                                                             .AsNoTracking()
+                                                             .FirstOrDefault(); // دریافت رکورد موجود
                     obj.Services.CreatedAt = existingService.CreatedAt;
                     obj.Services.UpdatedAt = DateTime.Now;
                     _unitOfWork.Service.Update(obj.Services);
                 }
+
                 _unitOfWork.SaveChanges();
                 TempData["success"] = "Service Created Successfully";
 
@@ -124,7 +124,6 @@ namespace Salon.Areas.Admin.Controllers
             {
                 ServiceVm serviceList = new()
                 {
-
                     CategoryList = _unitOfWork.Category.FindAll().Select(u => new SelectListItem
                     {
                         Text = u.CategoryName,
@@ -132,10 +131,10 @@ namespace Salon.Areas.Admin.Controllers
                     }),
                     Services = new Service()
                 };
+
                 return View(serviceList);
             }
         }
-
 
         public IActionResult Delete(int id)
         {

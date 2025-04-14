@@ -15,6 +15,10 @@ public class Category
     [DisplayName(" توضیحات")]
 
     public string Description  { get; set; } // فیلد خوانا برای URL  
+    [DisplayName(" عکس")]
+
+    public string ImageUrl { get; set; } // فیلد خوانا برای URL  
+
 
     // ارتباط با دسته‌بندی والد و فرزند
     public int? ParentCategoryId { get; set; }
