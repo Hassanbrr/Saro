@@ -26,4 +26,10 @@
     <ProjectReference Include="..\Utility\Utility.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Areas\Clint\Views\Home\" />
+    <Folder Include="wwwroot\images\Hero\" />
+    <Folder Include="wwwroot\images\Category\" />
+  </ItemGroup>
+
 </Project>

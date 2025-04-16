@@ -16,10 +16,12 @@ namespace Salon.Areas.Admin.Controllers
     public class CategoryController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public CategoryController(IUnitOfWork unitOfWork)
+        public CategoryController(IUnitOfWork unitOfWork, IWebHostEnvironment webHostEnvironment)
         {
             _unitOfWork = unitOfWork;
+            _webHostEnvironment = webHostEnvironment;
         }
         public IActionResult Index()
         {
@@ -59,10 +61,39 @@ namespace Salon.Areas.Admin.Controllers
         }
         [HttpPost]
 
-        public IActionResult Upsert(CategoryViewModel obj)
+        public IActionResult Upsert(CategoryViewModel obj, IFormFile file)
         {
             if (ModelState.IsValid)
             {
+
+
+                if (file != null)
+                {
+                    string wwwRootPath = _webHostEnvironment.WebRootPath;
+
+                    // نام فایل نهایی
+                    string fileName = Guid.NewGuid().ToString() + Path.GetFileNameWithoutExtension(file.FileName) + ".jpg";
+
+                    // مسیر ذخیره نهایی
+                    string productPath = Path.Combine(wwwRootPath, @"Images\Category");
+
+                    // حذف تصویر قدیمی اگر وجود داشته باشد
+                    if (!string.IsNullOrEmpty(obj.Category.ImageUrl))
+                    {
+                        var OldImagePath = Path.Combine(wwwRootPath, obj.Category.ImageUrl.TrimStart('\\'));
+
+                        if (System.IO.File.Exists(OldImagePath))
+                        {
+                            System.IO.File.Delete(OldImagePath);
+                        }
+                    }
+                    using (var fileStream = new FileStream(Path.Combine(productPath, fileName), FileMode.Create))
+                    {
+                        file.CopyTo(fileStream);
+                    }
+
+                    obj.Category.ImageUrl = @"\Images\Category\" + fileName; // مسیر ذخیره شده برای پایگاه داده
+                }
                 if (obj.Category.CategoryId == 0)
                 {
                     obj.Category.CreatedAt = DateTime.Now; 

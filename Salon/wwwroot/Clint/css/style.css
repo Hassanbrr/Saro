@@ -23,41 +23,39 @@ CSS STRUCTURE:
 
 --------------------------------------------------------------*/
 body {
-  --heading-font: "Marcellus", Roboto, sans-serif;
-  --heading-font-weight: 400;
-  --heading-color: #111;
-  --heading-line-height: 1.24;
-
-  --swiper-theme-color: #8C907E;
-
-  /* bootstrap */
-  --bs-body-font-family: "Jost", Roboto, sans-serif;
-  --bs-body-font-size: 18px;
-  --bs-body-font-weight: 400;
-  --bs-body-line-height: 1.5;
-  --bs-body-color: #8f8f8f;
-  --bs-body-color-rgb: 143, 143, 143;
-
-  --bs-primary: #8C907E;
-  --bs-secondary: #6c757d;
-  --bs-black: #111;
-  --bs-light: #F1F1F0;
-  --bs-dark: #212529;
-  --bs-gray: #9aa1a7;
-  --bs-gray-dark: #51565b;
-
-  --bs-primary-rgb: 140, 144, 126;
-  --bs-secondary-rgb: 108, 117, 125;
-  --bs-black-rgb: 17, 17, 17;
-  --bs-light-rgb: 241, 241, 240;
-  --bs-dark-rgb: 33, 37, 41;
-
-  --bs-link-color: #111;
-  --bs-link-color-rgb: 17, 17, 17;
-  --bs-link-decoration: underline;
-  --bs-link-hover-color: #111;
-  --bs-link-hover-color-rgb: 17, 17, 17;
+    --heading-font: "Marcellus", Roboto, sans-serif;
+    --heading-font-weight: 400;
+    --heading-color: #6c7151;
+    --heading-line-height: 1.24;
+    --swiper-theme-color: #8C907E;
+    /* bootstrap */
+    --bs-body-font-family: "Jost", Roboto, sans-serif;
+    --bs-body-font-size: 18px;
+    --bs-body-font-weight: 400;
+    --bs-body-line-height: 1.5;
+    --bs-body-color: #8f8f8f;
+    --bs-body-color-rgb: 143, 143, 143;
+    --bs-primary: #8C907E;
+    --bs-secondary: #6c757d;
+    --bs-black: #111;
+    --bs-light: #F1F1F0;
+    --bs-dark: #212529;
+    --bs-gray: #9aa1a7;
+    --bs-gray-dark: #51565b;
+    --bs-primary-rgb: 140, 144, 126;
+    --bs-secondary-rgb: 108, 117, 125;
+    --bs-black-rgb: 17, 17, 17;
+    --bs-light-rgb: 241, 241, 240;
+    --bs-dark-rgb: 33, 37, 41;
+    --bs-link-color: #111;
+    --bs-link-color-rgb: 17, 17, 17;
+    --bs-link-decoration: underline;
+    --bs-link-hover-color: #111;
+    --bs-link-hover-color-rgb: 17, 17, 17;
+    color: #AFB086;
+    background-color: #F1F1F0;
 }
+
 
 body {
   letter-spacing: 0.03rem;
@@ -75,26 +73,28 @@ h5,
 .h5,
 h6,
 .h6 {
-  font-family: sans-serif;
-  font-weight: var(--heading-font-weight);
-  color: var(--heading-color);
-  line-height: var(--heading-line-height);
+    font-family: sans-serif;
+    font-weight: var(--heading-font-weight);
+    color: var(--heading-color);
+    line-height: var(--heading-line-height);
+    color: #AFB086;
 }
 
-h1.light,
-.h1,
-h2.light,
-.h2,
-h3.light,
-.h3,
-h4.light,
-.h4,
-h5.light,
-.h5,
-h6.light,
-.h6 {
-  color: var(--light-color);
-}
+    h1.light,
+    .h1,
+    h2.light,
+    .h2,
+    h3.light,
+    .h3,
+    h4.light,
+    .h4,
+    h5.light,
+    .h5,
+    h6.light,
+    .h6 {
+        color: var(--light-color);
+        color: #AFB086;
+    }
 
 h1,
 h2,
@@ -1547,3 +1547,19 @@ a.btn-link.text-light:after {
     display:block;
     margin:0 auto;
 }
+.product-image {
+    width: 100%;
+    height: auto;
+    border-radius: 12.5rem 12.5rem 10px 10px;
+    overflow: hidden;
+    object-fit: cover; 
+}
+.link-hover {
+    border-radius: 12.5rem 12.5rem 10px 10px;
+    overflow: hidden;
+}
+
+p, h1, h2,a, h3, span, div {
+    color: #6C7151;
+}
+ 

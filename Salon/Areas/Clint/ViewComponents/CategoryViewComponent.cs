@@ -15,8 +15,8 @@ namespace Salon.Areas.Clint.ViewComponents
         }
         public IViewComponentResult Invoke()
         {
-            var serviceList = _unitOfWork.Service.FindAll().ToList();
-            return View(serviceList);
+            var categories = _unitOfWork.Category.FindAll().ToList();
+            return View(categories);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿<section id="billboard" class="bg-light py-5" dir="rtl">
+﻿@model List<Category>
+<section id="billboard" class="bg-light py-5 " dir="rtl">
 	<div class="container">
 		<div class="row justify-content-center">
 			<h1 class="section-title text-center mt-4" data-aos="fade-up"> Saro Beauty Lounge  </h1>
@@ -13,84 +14,26 @@
 			<div class="open-up" data-aos="zoom-out">
 				<div class="row">
 
-					<div class="col-md-4  py-5">
-						<div class="cat-item image-zoom-effect">
-							<div class="image-holder link-hover">
-								<a href="index.html">
-									<img src="~/Clint/images/cat-item2.jpg" alt="categories" class="product-image img-fluid">
-								</a>
-							</div>
-							<div class="category-content">
-								<div class="product-button">
-									<a href="index.html" class="btn btn-common text-uppercase">Shop for women</a>
-								</div>
-							</div>
-						</div>
-					</div><div class="col-md-4  py-5">
-						<div class="cat-item image-zoom-effect">
-							<div class="image-holder link-hover">
-								<a href="index.html">
-									<img src="~/Clint/images/cat-item2.jpg" alt="categories" class="product-image img-fluid">
-								</a>
-							</div>
-							<div class="category-content">
-								<div class="product-button">
-									<a href="index.html" class="btn btn-common text-uppercase">Shop for women</a>
-								</div>
-							</div>
-						</div>
-					</div><div class="col-md-4  py-5">
-						<div class="cat-item image-zoom-effect">
-							<div class="image-holder link-hover">
-								<a href="index.html">
-									<img src="~/Clint/images/cat-item2.jpg" alt="categories" class="product-image img-fluid">
-								</a>
-							</div>
-							<div class="category-content">
-								<div class="product-button">
-									<a href="index.html" class="btn btn-common text-uppercase">Shop for women</a>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-4  py-5">
-						<div class="cat-item image-zoom-effect">
-							<div class="image-holder link-hover">
-								<a href="index.html">
-									<img src="~/Clint/images/cat-item3.jpg" alt="categories" class="product-image img-fluid">
-								</a>
-							</div>
-							<div class="category-content">
-								<div class="product-button">
-									<a href="index.html" class="btn btn-common text-uppercase">Shop accessories</a>
-								</div>
-							</div>
-						</div>
-					</div>
+				 @foreach (var item in Model )
+				 {
+						<div class="col-md-4  py-5 ">
+							<div class="cat-item image-zoom-effect">
+								<div class="image-holder link-hover image-zoom-effect">
+									<a asp-area="Clint" asp-controller="Service" asp-action="GetServicesByCategory" asp-route-categoryId="@item.CategoryId" >
+									 <img src="@item.ImageUrl" alt="categories" class="product-image img-fluid " >
+								 </a>
+							 </div>
+							 <div class="category-content">
+								 <div class="product-button">
+										<a asp-area="Clint" asp-controller="Service" asp-action="GetServicesByCategory" asp-route-categoryId="@item.CategoryId" class="btn btn-common text-uppercase"><h4>@item.CategoryName</h4></a>
+								 </div>
+							 </div>
+						 </div>
+					 </div>
+				 } 
 				</div>
 			</div>
 		</div>
 	</div>
 </section>
-@section Scripts
-{
-	<script>
-		document.addEventListener("DOMContentLoaded", function () {
-			var swiper = new Swiper('.main-swiper', {
-				loop: true, // فعال کردن چرخش بی‌پایان
-				autoplay: {
-					delay: 1000, // مدت زمان توقف روی هر اسلاید (2 ثانیه)
-					disableOnInteraction: false // تعامل کاربر Autoplay را متوقف نمی‌کند
-				},
-				pagination: {
-					el: '.swiper-pagination',
-					clickable: true
-				},
-				navigation: {
-					nextEl: '.carousel-control-next',
-					prevEl: '.carousel-control-prev'
-				}
-			});
-		});
-	</script>
-}
+

@@ -149,6 +149,11 @@ namespace Salon.Areas.Admin.Controllers
 
             return RedirectToAction("Index");
         }
-
+     
     }
+
+     
+ 
+
+
 }

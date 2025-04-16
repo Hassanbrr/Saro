@@ -16,7 +16,7 @@ public class Category
 
     public string Description  { get; set; } // فیلد خوانا برای URL  
     [DisplayName(" عکس")]
-
+    [ValidateNever]
     public string ImageUrl { get; set; } // فیلد خوانا برای URL  
 
 
