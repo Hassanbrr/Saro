@@ -14,23 +14,25 @@
 			<div class="open-up" data-aos="zoom-out">
 				<div class="row">
 
-				 @foreach (var item in Model )
-				 {
-						<div class="col-md-4  py-5 ">
+					@foreach (var item in Model)
+					{
+						<div class="col-md-4  py-4 ">
 							<div class="cat-item image-zoom-effect">
-								<div class="image-holder link-hover image-zoom-effect">
-									<a asp-area="Clint" asp-controller="Service" asp-action="GetServicesByCategory" asp-route-categoryId="@item.CategoryId" >
-									 <img src="@item.ImageUrl" alt="categories" class="product-image img-fluid " >
-								 </a>
-							 </div>
-							 <div class="category-content">
-								 <div class="product-button">
-										<a asp-area="Clint" asp-controller="Service" asp-action="GetServicesByCategory" asp-route-categoryId="@item.CategoryId" class="btn btn-common text-uppercase"><h4>@item.CategoryName</h4></a>
-								 </div>
-							 </div>
-						 </div>
-					 </div>
-				 } 
+								<a asp-area="Clint" asp-controller="Category" asp-action="GetServicesByCategory" asp-route-slug="@item.Slug">
+
+									<div class="image-holder link-hover image-zoom-effect">
+										<img src="@item.ImageUrl" alt="categories" class="product-image cat-image img-fluid ">
+									</div>
+									<div class="category-content text-center">
+										<div class="product-button">
+											 <h4>@item.CategoryName</h4> 
+										</div>
+									</div>
+								</a>
+
+							</div>
+						</div>
+					}
 				</div>
 			</div>
 		</div>

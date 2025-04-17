@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Utility;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Utility.Helpers;
+using Microsoft.CodeAnalysis.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,7 +18,7 @@ PersianCultureConfig.ConfigurePersianCulture();
 builder.Services.AddControllersWithViews();
 //Configure Database
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-builder.Services.AddScoped<IEmailSender, EmailSender>();
+builder.Services.AddScoped<IEmailSender, EmailSender>(); 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.ConfigureApplicationCookie(options =>
@@ -28,7 +29,12 @@ builder.Services.ConfigureApplicationCookie(options =>
 
 });
 builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = false).AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
+//Configure Routing
+//builder.Services.AddRouting(options => {
+//    options.LowercaseUrls = true;
+//    options.AppendTrailingSlash = true;
 
+//});
 
 builder.Services.AddRazorPages();
 var app = builder.Build();
@@ -51,6 +57,6 @@ app.MapRazorPages();
 app.MapControllerRoute(
     name: "default",
 // Default Admin
-    pattern: "{area=Clint}/{controller=Home}/{action=Index}/{id?}");
+    pattern: "{area=Clint}/{controller=Home}/{action=Index}/{id?}/{slug?}/");
 
 app.Run();

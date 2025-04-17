@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 public class Category
 {
@@ -9,9 +10,9 @@ public class Category
     [Required]
     [DisplayName("نام دسته بندی ")]
     public string CategoryName { get; set; }
+    [NotMapped]
     [DisplayName("اسلاگ")]
- 
-    public string Slug { get; set; } // فیلد خوانا برای URL  
+    public string Slug => CategoryName?.Replace(' ', '-').ToLower(); 
     [DisplayName(" توضیحات")]
 
     public string Description  { get; set; } // فیلد خوانا برای URL  

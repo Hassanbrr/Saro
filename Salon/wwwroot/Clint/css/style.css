@@ -1547,6 +1547,11 @@ a.btn-link.text-light:after {
     display:block;
     margin:0 auto;
 }
+.cat-image {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
 .product-image {
     width: 100%;
     height: auto;

@@ -43,50 +43,16 @@ namespace DataAccess.Context
                 .HasForeignKey(c => c.ParentId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<Category>()
-                .HasMany(x => x.Services)
-                .WithOne(y => y.Category)
-                .HasForeignKey(s => s.CategoryId)
-                .OnDelete(DeleteBehavior.Cascade);
-
-
-
-            // تنظیم فیلد Slug به عنوان یکتا
-            modelBuilder.Entity<Category>()
-                .HasIndex(c => c.Slug)
-                .IsUnique();
 
             modelBuilder.Entity<Service>()
-                .HasIndex(s => s.Slug)
-                .IsUnique();
+                .HasOne(s => s.Category)
+                .WithMany(c => c.Services)
+                .HasForeignKey(s => s.CategoryId)
+                .OnDelete(DeleteBehavior.SetNull);
 
+        
 
-            // Seed data برای جدول Service
-            modelBuilder.Entity<Service>().HasData(
-                
-                   
-                new Service
-                {
-                    ServiceId = 1,
-                    ServiceName = "رنگ مو",
-                    Description = "رنگ‌آمیزی تخصصی با بهترین مواد",
-                    Price = 300000,
-                    Duration = 90,
-                    Slug = "رنگ مو", 
-                    ImageUrl = "~/images/Logo.png"
-                },
-                new Service
-                {
-                    ServiceId = 2,
-                    ServiceName = "ترمیم",
-                    Description = "خدمات مانیکور و زیبایی ناخن",
-                    Price = 150000,
-                    Duration = 60,
-                    Slug = "ترمیم",  
-                    ImageUrl = "~/images/Logo.png"
-                    
-                }
-            );
+            
         
         }
     }

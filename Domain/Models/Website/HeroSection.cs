@@ -1,5 +1,7 @@
 ﻿
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace Domain.Models.Website
@@ -17,8 +19,9 @@ namespace Domain.Models.Website
         public string ImageUrl { get; set; }
  
         [Required]
-
-        public string Slug { get; set; }  
+        [NotMapped]
+        [DisplayName("اسلاگ")]
+        public string Slug => Title?.Replace(' ', '-').ToLower();
 
     }
 }

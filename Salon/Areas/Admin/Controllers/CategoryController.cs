@@ -132,17 +132,23 @@ namespace Salon.Areas.Admin.Controllers
 
         public async Task<RedirectToActionResult> Delete(int id)
         {
-            // قطع وابستگی فرزندان
-            _unitOfWork.Category.DetachChildren(c => c.ParentCategoryId == id, "ParentCategoryId");
+            var category = _unitOfWork.Category
+                .FindByCondition(u => u.CategoryId == id,includeProperties:"Services")
+                 // بارگذاری رابطه با خدمات
+                .FirstOrDefault();
 
-            // حذف والد
-            var parent = await _unitOfWork.Category.FindByCondition(c => c.CategoryId == id).FirstOrDefaultAsync();
-            if (parent != null)
+            if (category != null)
             {
-                _unitOfWork.Category.Delete(parent);
+                if (category.Services != null && category.Services.Any()) // بررسی مقدار null قبل از ToList()
+                {
+                    category.Services.ToList().ForEach(s => s.CategoryId = null);
+                }
+
+                _unitOfWork.Category.Delete(category);
                 _unitOfWork.SaveChanges();
             }
-            return RedirectToAction(nameof(Index));
+
+            return RedirectToAction("Index");
         }
 
 

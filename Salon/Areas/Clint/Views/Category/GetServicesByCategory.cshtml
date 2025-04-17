@@ -1,7 +1,7 @@
 ﻿@model List<Service>
 
 <section class="container " dir="rtl">
-	<h2 class="text-center mt-4">خدمات مژه</h2>
+	<h2 class="text-center mt-4"> @ViewBag.CategoryName</h2>
 
 	<div class="row">
 	 
@@ -10,7 +10,7 @@
 			<div class="col-6 col-md-4 py-3 d-flex justify-content-center  ">
 				<div class="card shadow-sm cat-item link-hover" style="max-width:300px; width:100%;">
 					<div class="image-holder">
-						<a asp-area="Clint" asp-controller="Service" asp-action="GetServicesByCategory">
+						<a asp-area="Clint" asp-controller="Category" asp-action="GetServicesByCategory">
 							<img src="@service.ImageUrl" alt="categories" class="product-image img-fluid card-img-top lazyload"  >
 						</a>
 					</div>

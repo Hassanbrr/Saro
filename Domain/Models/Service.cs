@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using System.Collections;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 public class Service 
 {
@@ -19,9 +20,9 @@ public class Service
     [DisplayName("عکس")]
     [ValidateNever]
     public string ImageUrl { get; set; }
-    [DisplayName("اسلاگ")]
-
-    public string Slug { get; set; } // فیلد خوانا برای URL
+    [NotMapped]
+    [DisplayName("اسلاگ")]  
+    public string Slug => ServiceName?.Replace(' ', '-').ToLower(); // فیلد خوانا برای URL
 
     [DisplayName("توضیحات")]
     public string Description { get; set; }

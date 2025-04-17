@@ -48,19 +48,12 @@ namespace DataAccess.Migrations
                     b.Property<int?>("ParentCategoryId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Slug")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
                     b.HasKey("CategoryId");
 
                     b.HasIndex("ParentCategoryId");
-
-                    b.HasIndex("Slug")
-                        .IsUnique();
 
                     b.ToTable("Categories");
                 });
@@ -74,10 +67,6 @@ namespace DataAccess.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("ImageUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Slug")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -363,10 +352,6 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Slug")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
@@ -374,32 +359,7 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.HasIndex("Slug")
-                        .IsUnique();
-
                     b.ToTable("Services");
-
-                    b.HasData(
-                        new
-                        {
-                            ServiceId = 1,
-                            Description = "رنگ‌آمیزی تخصصی با بهترین مواد",
-                            Duration = 90,
-                            ImageUrl = "~/images/Logo.png",
-                            Price = 300000m,
-                            ServiceName = "رنگ مو",
-                            Slug = "رنگ مو"
-                        },
-                        new
-                        {
-                            ServiceId = 2,
-                            Description = "خدمات مانیکور و زیبایی ناخن",
-                            Duration = 60,
-                            ImageUrl = "~/images/Logo.png",
-                            Price = 150000m,
-                            ServiceName = "ترمیم",
-                            Slug = "ترمیم"
-                        });
                 });
 
             modelBuilder.Entity("Domain.Models.ApplicationUser", b =>
@@ -493,7 +453,7 @@ namespace DataAccess.Migrations
                     b.HasOne("Category", "Category")
                         .WithMany("Services")
                         .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("Category");
                 });
