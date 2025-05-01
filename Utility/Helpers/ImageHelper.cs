@@ -29,5 +29,28 @@ namespace Utility.Helpers
                 await image.SaveAsJpegAsync(savePath);
             }
         }
+        public static async Task ResizeImageAsync1400_1500(IFormFile uploadedFile, string savePath)
+        {
+            // بررسی فایل ورودی
+            if (uploadedFile == null || uploadedFile.Length == 0)
+            {
+                throw new ArgumentException("فایل آپلود شده معتبر نیست.");
+            }
+
+            // باز کردن فایل و تغییر اندازه
+            using (var image = await Image.LoadAsync(uploadedFile.OpenReadStream()))
+            {
+                // تغییر اندازه تصویر به 1800x1440
+                image.Mutate(x => x.Resize(new ResizeOptions
+                {
+                    Size = new Size(1400, 1500),
+                    Mode = ResizeMode.Crop // برش تصویر برای تطابق کامل با اندازه
+                }));
+
+                // ذخیره تصویر با فرمت JPEG
+                await image.SaveAsJpegAsync(savePath);
+            }
+        }
+
     }
 }

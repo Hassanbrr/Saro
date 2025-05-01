@@ -37,5 +37,14 @@ namespace Salon.Areas.Clint.Controllers
             return View(services);
         }
 
+
+
+        public IActionResult AllCategoryWithServices()
+        {
+            var categories = _unitOfWork.Category.FindAll(includeProperties: "Services").ToList();
+            return View(categories);
+        }
+
+    
     }
 }

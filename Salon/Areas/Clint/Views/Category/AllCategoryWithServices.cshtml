@@ -1,0 +1,79 @@
+﻿@model List<Category>
+ 
+<section id="services-page" class="bg-light py-2" dir="rtl">
+	<div class="container">
+		<h1 class="text-center"> خدمات</h1>
+
+		@foreach (var category in Model)
+		{
+			<section id="new-arrival" class="new-arrival product-carousel py-2 position-relative overflow-hidden" dir="rtl">
+				<div class="container">
+					<div class="d-flex flex-wrap justify-content-between align-items-center mt-2 mb-3">
+						<h4 class="text-uppercase"> @category.CategoryName</h4>
+						 
+					</div>
+					<div class="swiper product-swiper open-up" data-aos="zoom-out">
+						<div class="swiper-wrapper d-flex">
+							@foreach (var service in category.Services)
+							{
+								<div class="swiper-slide ">
+									<div class="product-item image-zoom-effect link-effect text-center">
+										<div class="image-holder position-relative">
+											<a href="#" class=" link-hover">
+												<img src="@service.ImageUrl" alt="categories" class="product-image img-fluid">
+											</a>
+											<a href="#" class="btn-icon btn-wishlist rounded-pill">
+												<svg width="24" height="24">
+													<use xlink:href="#heart"></use>
+												</svg>
+											</a>
+											<div class="product-content">
+												<h5 class="element-title text-uppercase fs-5 mt-3">
+													@service.ServiceName
+												</h5>
+
+												<span>@string.Format("{0:n0}", @service.Price) تومان</span>
+
+											</div>
+										</div>
+									</div>
+
+								</div>
+
+							}
+							<!-- دکمه‌های ناوبری وسط -->
+
+						</div>
+					</div>
+				
+					<div class="swiper-pagination"></div>
+				 
+
+				</div>
+			</section>
+
+		}
+	</div>
+</section>
+@section Scripts
+{
+	<script>
+		var swiper = new Swiper('.swiper-container', {
+			spaceBetween: 20,
+			autoplay: { delay: 1000 },
+			navigation: {
+				nextEl: '.swiper-button-next',
+				prevEl: '.swiper-button-prev',
+			},
+			pagination: {
+				el: '.swiper-pagination',
+				clickable: true,
+			},
+			breakpoints: {
+				320: { slidesPerView: 3 },
+				768: { slidesPerView: 3 },
+				1024: { slidesPerView: 4 }
+			}
+		});
+	</script>
+}

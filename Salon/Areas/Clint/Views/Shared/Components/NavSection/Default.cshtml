@@ -1,189 +1,115 @@
-﻿<nav class="navbar navbar-expand-lg bg-light text-uppercase fs-6 p-3 border-bottom align-items-center">
-    <div class="container-fluid">
-        <div class="row justify-content-between align-items-center w-100">
+﻿@await Component.InvokeAsync("SearchGroup")
 
-            <div class="col-auto">
-                <a class="navbar-brand text-white" href="index.html">
-                    <img src="~/images/Logo.png" class="rounded-circle" width="90px" height="90px">
-                </a>
-            </div>
+<nav class="navbar navbar-expand-lg bg-light text-uppercase fs-6 p-3 border-bottom align-items-center">
+	<div class="container-fluid">
+		<div class="row justify-content-between align-items-center w-100">
 
-            <div class="col-auto">
-                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
-                        aria-controls="offcanvasNavbar">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+			<div class="col-auto">
+				<a class="navbar-brand text-white" href="index.html">
+					<img src="~/images/Logo.png" class="rounded-circle" width="90px" height="90px">
+				</a>
+			</div>
 
-                <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar"
-                     aria-labelledby="offcanvasNavbarLabel">
-                    <div class="offcanvas-header">
-                        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">منو</h5>
-                        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
-                                aria-label="Close"></button>
-                    </div>
+			<div class="col-auto">
+				<button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+						aria-controls="offcanvasNavbar">
+					<span class="navbar-toggler-icon"></span>
+				</button>
 
-                    <div class="offcanvas-body">
-                        <ul class="navbar-nav justify-content-end flex-grow-1 gap-1 gap-md-5 pe-3">
-                            <li class="nav-item  ">
-                                <a class="nav-link " asp-area="Clint" asp-controller="Home" asp-action="Index"  aria-haspopup="true" aria-expanded="false">خانه</a>
-                                
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="dropdownShop" data-bs-toggle="dropdown"
-                                   aria-haspopup="true" aria-expanded="false">Shop</a>
-                                <ul class="dropdown-menu list-unstyled" aria-labelledby="dropdownShop">
-                                    <li>
-                                        <a href="index.html" class="dropdown-item item-anchor">Shop Sidebar </a>
-                                    </li>
-                                    <li>
-                                        <a href="index.html" class="dropdown-item item-anchor">Shop Three Column </a>
-                                    </li>
-                                    <li>
-                                        <a href="index.html" class="dropdown-item item-anchor">Shop Three Column Wide </a>
-                                    </li>
-                                    <li>
-                                        <a href="index.html" class="dropdown-item item-anchor">Shop Four Column </a>
-                                    </li>
-                                    <li>
-                                        <a href="index.html" class="dropdown-item item-anchor">Shop Four Column Wide </a>
-                                    </li>
-                                    <li>
-                                        <a href="index.html" class="dropdown-item item-anchor">Shop Six Column </a>
-                                    </li>
-                                    <li>
-                                        <a href="index.html" class="dropdown-item item-anchor">Shop Six Column Wide </a>
-                                    </li>
-                                    <li>
-                                        <a href="index.html" class="dropdown-item item-anchor">Single Product </a>
-                                    </li>
-                                    <li>
-                                        <a href="index.html" class="dropdown-item item-anchor">Single Product V2 </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="dropdownBlog" data-bs-toggle="dropdown"
-                                   aria-haspopup="true" aria-expanded="false">Blog</a>
-                                <ul class="dropdown-menu list-unstyled" aria-labelledby="dropdownBlog">
-                                    <li>
-                                        <a href="index.html" class="dropdown-item item-anchor">Blog Classic </a>
-                                    </li>
-                                    <li>
-                                        <a href="index.html" class="dropdown-item item-anchor">Blog Grid with Sidebar </a>
-                                    </li>
-                                    <li>
-                                        <a href="index.html" class="dropdown-item item-anchor">Blog Grid Four Column </a>
-                                    </li>
-                                    <li>
-                                        <a href="index.html" class="dropdown-item item-anchor">Blog No Sidebar </a>
-                                    </li>
-                                    <li>
-                                        <a href="index.html" class="dropdown-item item-anchor">Blog Right Sidebar </a>
-                                    </li>
-                                    <li>
-                                        <a href="index.html" class="dropdown-item item-anchor">Single Post </a>
-                                    </li>
-                                    <li>
-                                        <a href="index.html" class="dropdown-item item-anchor">Single Post No Sidebar </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="dropdownPages" data-bs-toggle="dropdown"
-                                   aria-haspopup="true" aria-expanded="false">Pages</a>
-                                <ul class="dropdown-menu list-unstyled" aria-labelledby="dropdownPages">
-                                    <li>
-                                        <a href="index.html" class="dropdown-item item-anchor">About </a>
-                                    </li>
-                                    <li>
-                                        <a href="index.html" class="dropdown-item item-anchor">Cart </a>
-                                    </li>
-                                    <li>
-                                        <a href="index.html" class="dropdown-item item-anchor">Checkout </a>
-                                    </li>
-                                    <li>
-                                        <a href="index.html" class="dropdown-item item-anchor">Coming Soon </a>
-                                    </li>
-                                    <li>
-                                        <a href="index.html" class="dropdown-item item-anchor">Contact </a>
-                                    </li>
-                                    <li>
-                                        <a href="index.html" class="dropdown-item item-anchor">Error Page </a>
-                                    </li>
-                                    <li>
-                                        <a href="index.html" class="dropdown-item item-anchor">FAQs </a>
-                                    </li>
-                                    <li>
-                                        <a href="index.html" class="dropdown-item item-anchor">My Account </a>
-                                    </li>
-                                    <li>
-                                        <a href="index.html" class="dropdown-item item-anchor">Order Tracking </a>
-                                    </li>
-                                    <li>
-                                        <a href="index.html" class="dropdown-item item-anchor">Wishlist </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Blog</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Contact</a>
-                            </li>
-                            @* @if (User.IsInRole(Sd.Role_Admin))   *@
-                            @* { *@
-                                <li class="nav-item">  
-                                     <a class="nav-link text-dark" asp-area="Admin" asp-controller="Home" asp-action="Index">ادمین</a>  
+				<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar"
+					 aria-labelledby="offcanvasNavbarLabel">
+					<div class="offcanvas-header">
+						<h5 class="offcanvas-title" id="offcanvasNavbarLabel">منو</h5>
+						<button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+								aria-label="Close"></button>
+					</div>
 
-                                </li> 
+					<div class="offcanvas-body" dir="rtl">
+						<ul class="navbar-nav justify-content-end flex-grow-1 gap-1 gap-md-5 pe-3">
+							<li class="nav-item  ">
+								<a class="nav-link " asp-area="Clint" asp-controller="Home" asp-action="Index" aria-haspopup="true" aria-expanded="false">خانه</a>
 
-                              @* } *@
-                            @* <partial name="_LoginPartial" /> *@
+							</li>
+							<li class="nav-item dropdown">
+								<a class="nav-link dropdown-toggle " href="#" id="dropdownShop" data-bs-toggle="dropdown"
+								   aria-haspopup="true" aria-expanded="false">پدیکور</a>
+								<ul class="dropdown-menu list-unstyled" aria-labelledby="dropdownShop">
+									<li>
+										<a href="index.html" class="dropdown-item item-anchor"> درمانی </a>
+									</li>
+								 
+								</ul>
+							</li>
+							<li class="nav-item dropdown">
+								<a class="nav-link dropdown-toggle" href="#" id="dropdownBlog" data-bs-toggle="dropdown"
+								   aria-haspopup="true" aria-expanded="false">مانیکور</a>
+								<ul class="dropdown-menu list-unstyled" aria-labelledby="dropdownBlog">
+									<li>
+										<a href="index.html" class="dropdown-item item-anchor">Blog Classic </a>
+									</li>
+								 
+								</ul>
+							</li>
+							<li class="nav-item dropdown">
+								<a class="nav-link dropdown-toggle" href="#" id="dropdownPages" data-bs-toggle="dropdown"
+								   aria-haspopup="true" aria-expanded="false">مژه</a>
+								<ul class="dropdown-menu list-unstyled" aria-labelledby="dropdownPages">
+									<li>
+										<a href="index.html" class="dropdown-item item-anchor">About </a>
+									</li>
+							 
+								</ul>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#">Blog</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#">Contact</a>
+							</li>
+							@* @if (User.IsInRole(Sd.Role_Admin))   *@
+							@* { *@
+							<li class="nav-item">
+								<a class="nav-link text-dark" asp-area="Admin" asp-controller="Home" asp-action="Index">ادمین</a>
 
-                        </ul>
-                    </div>
-                </div>
-            </div>
+							</li>
 
-            <div class="col-3 col-lg-auto">
-                <ul class="list-unstyled d-flex m-0">
-                    <li class="d-none d-lg-block">
-                        <a href="index.html" class="text-uppercase mx-3">
-                            Wishlist <span class="wishlist-count">(0)</span>
-                        </a>
-                    </li>
-                    <li class="d-none d-lg-block">
-                        <a href="index.html" class="text-uppercase mx-3" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart"
-                           aria-controls="offcanvasCart">
-                            Cart <span class="cart-count">(0)</span>
-                        </a>
-                    </li>
-                    <li class="d-lg-none">
-                        <a href="#" class="mx-2">
-                            <svg width="24" height="24" viewBox="0 0 24 24">
-                                <use xlink:href="#heart"></use>
-                            </svg>
-                        </a>
-                    </li>
-                    <li class="d-lg-none">
-                        <a href="#" class="mx-2" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart"
-                           aria-controls="offcanvasCart">
-                            <svg width="24" height="24" viewBox="0 0 24 24">
-                                <use xlink:href="#cart"></use>
-                            </svg>
-                        </a>
-                    </li>
-                    <li class="search-box" class="mx-2">
-                        <a href="#search" class="search-button">
-                            <svg width="24" height="24" viewBox="0 0 24 24">
-                                <use xlink:href="#search"></use>
-                            </svg>
-                        </a>
-                    </li>
-                </ul>
-            </div>
+						 
+							 <partial name="_LoginPartial" /> 
 
-        </div>
+						</ul>
+					</div>
+				</div>
+			</div>
 
-    </div>
+			<div class="col-3 col-lg-auto">
+				<ul class="list-unstyled d-flex m-0">
+
+					<li class="d-lg-none mx-2">
+						<a href="https://www.instagram.com/saro.beauty.lounge?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" class="text-secondary">
+							<svg width="24" height="24" viewBox="0 0 24 24">
+								<use xlink:href="#instagram"></use>
+							</svg>
+						</a>
+					</li>
+					<li class="d-lg-none mx-2">
+						<a href="https://wa.me/989389978610" class="text-secondary">
+
+							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-whatsapp" viewBox="0 0 16 16">
+								<path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232" />
+							</svg>
+						</a>
+					</li>
+					<li class="search-box" class="mx-2">
+						<a href="#search" class="search-button">
+							<svg width="24" height="24" viewBox="0 0 24 24">
+								<use xlink:href="#search"></use>
+							</svg>
+						</a>
+					</li>
+				</ul>
+			</div>
+
+		</div>
+
+	</div>
 </nav>

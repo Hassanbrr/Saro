@@ -15,7 +15,8 @@ namespace Salon.Areas.Clint.ViewComponents
         }
         public IViewComponentResult Invoke()
         {
-           var serviceList = _unitOfWork.Service.FindAll().ToList();
+            var random = new Random();
+            var serviceList = _unitOfWork.Service.FindAll().AsEnumerable().OrderBy(x => random.Next()).ToList();
             return View(serviceList);
         }
     }

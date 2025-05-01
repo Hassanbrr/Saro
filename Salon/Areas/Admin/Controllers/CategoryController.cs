@@ -61,7 +61,7 @@ namespace Salon.Areas.Admin.Controllers
         }
         [HttpPost]
 
-        public IActionResult Upsert(CategoryViewModel obj, IFormFile file)
+        public async Task<IActionResult> Upsert(CategoryViewModel obj, IFormFile file)
         {
             if (ModelState.IsValid)
             {
@@ -87,23 +87,22 @@ namespace Salon.Areas.Admin.Controllers
                             System.IO.File.Delete(OldImagePath);
                         }
                     }
-                    using (var fileStream = new FileStream(Path.Combine(productPath, fileName), FileMode.Create))
-                    {
-                        file.CopyTo(fileStream);
-                    }
+                  
+                    string savePath = Path.Combine(productPath, fileName); // مسیر ذخیره تصویر جدید
+                    await ImageHelper.ResizeImageAsync1400_1500(file, savePath); // استفاده از متد تغییر اندازه
 
                     obj.Category.ImageUrl = @"\Images\Category\" + fileName; // مسیر ذخیره شده برای پایگاه داده
                 }
                 if (obj.Category.CategoryId == 0)
                 {
-                    obj.Category.CreatedAt = DateTime.Now; 
+                    obj.Category.CreatedAt = DateTime.Now;
                     _unitOfWork.Category.Create(obj.Category);
                 }
                 else
                 {
                     var existingService = _unitOfWork.Category.FindByCondition(u => u.CategoryId == obj.Category.CategoryId).AsNoTracking().FirstOrDefault(); // دریافت رکورد موجود
                     obj.Category.CreatedAt = existingService.CreatedAt;
-                    obj.Category.UpdatedAt=DateTime.Now; 
+                    obj.Category.UpdatedAt = DateTime.Now;
                     _unitOfWork.Category.Update(obj.Category);
                 }
                 _unitOfWork.SaveChanges();
@@ -133,8 +132,8 @@ namespace Salon.Areas.Admin.Controllers
         public async Task<RedirectToActionResult> Delete(int id)
         {
             var category = _unitOfWork.Category
-                .FindByCondition(u => u.CategoryId == id,includeProperties:"Services")
-                 // بارگذاری رابطه با خدمات
+                .FindByCondition(u => u.CategoryId == id, includeProperties: "Services")
+                // بارگذاری رابطه با خدمات
                 .FirstOrDefault();
 
             if (category != null)

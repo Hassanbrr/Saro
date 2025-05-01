@@ -15,7 +15,11 @@ namespace Salon.Areas.Clint.ViewComponents
         }
         public IViewComponentResult Invoke()
         {
-            var categories = _unitOfWork.Category.FindAll().ToList();
+            // فقط دسته‌بندی‌هایی که والد هستند و فرزند ندارند
+            var categories = _unitOfWork.Category
+                .FindAll()
+                .Where(c => c.ParentCategoryId == null)      
+                .ToList();
             return View(categories);
         }
     }
